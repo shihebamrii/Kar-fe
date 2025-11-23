@@ -46,11 +46,11 @@ const Testimonials = () => {
                   <Star key={i} className="h-5 w-5 text-yellow-400 fill-current" />
                 ))}
               </div>
-              
+
               <blockquote className="text-gray-700 mb-6 leading-relaxed">
                 "{testimonial.quote}"
               </blockquote>
-              
+
               <div className="flex items-center">
                 <img
                   src={testimonial.avatar}

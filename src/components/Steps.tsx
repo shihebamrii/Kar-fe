@@ -43,7 +43,7 @@ const Steps = () => {
                   <div className="absolute right-0 top-1/2 transform -translate-y-1/2 w-2 h-2 bg-gray-300 rounded-full"></div>
                 </div>
               )}
-              
+
               <div className="relative z-10">
                 <div className={`inline-flex items-center justify-center w-16 h-16 rounded-full ${step.color} mb-6 mx-auto`}>
                   <step.icon className="h-8 w-8" />
@@ -52,7 +52,7 @@ const Steps = () => {
                   {index + 1}
                 </div>
               </div>
-              
+
               <h3 className="text-xl font-semibold text-gray-900 mb-3">{step.title}</h3>
               <p className="text-gray-600 leading-relaxed">{step.description}</p>
             </div>

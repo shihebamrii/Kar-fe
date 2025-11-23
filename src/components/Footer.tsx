@@ -16,7 +16,7 @@ const Footer = () => {
               <span className="text-xl font-bold">Karhabti</span>
             </div>
             <p className="text-gray-300 mb-4 max-w-md">
-              Suivez l'entretien de votre voiture en un clic avec notre carte NFC intelligente. 
+              Suivez l'entretien de votre voiture en un clic avec notre carte NFC intelligente.
               Gardez un historique complet de tous vos services et révisions.
             </p>
             <div className="flex space-x-4">
@@ -93,7 +93,7 @@ const Footer = () => {
             © 2025 Karhabti. Tous droits réservés.
           </p>
           <p className="text-gray-400 text-sm mt-2 sm:mt-0">
-            Built with ❤️ by <a rel='nofollow' target='_blank' href="https://meku.dev" className="text-blue-400 hover:text-blue-300">Meku.dev</a>
+            Built with ❤️ by <a rel='nofollow' target='_blank' href="#" className="text-blue-400 hover:text-blue-300">Shiheb Amri</a>
           </p>
         </div>
       </div>

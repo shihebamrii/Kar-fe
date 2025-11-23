@@ -50,7 +50,7 @@ const Features = () => {
             Tout ce dont vous avez besoin pour suivre votre voiture
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Karhabti vous offre tous les outils nécessaires pour maintenir un historique 
+            Karhabti vous offre tous les outils nécessaires pour maintenir un historique
             complet et organisé de l'entretien de votre véhicule.
           </p>
         </div>

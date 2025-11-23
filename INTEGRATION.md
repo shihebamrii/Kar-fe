@@ -32,10 +32,10 @@ The frontend is a React + TypeScript application using Vite, and it communicates
 Create a `.env` file in `kar-fe/` directory:
 
 ```env
-VITE_API_URL=http://localhost:3000
+VITE_API_URL=https://kar-be.onrender.com
 ```
 
-If not set, defaults to `http://localhost:3000`.
+If not set, defaults to `https://kar-be.onrender.com`.
 
 ### 2. Backend Setup
 
@@ -48,7 +48,7 @@ npm install
 npm run dev
 ```
 
-The backend should be running on `http://localhost:3000`.
+The backend should be running on `https://kar-be.onrender.com`.
 
 ### 3. Frontend Setup
 
@@ -195,7 +195,7 @@ try {
 
 Vite is configured to proxy `/api` requests to the backend during development. This means:
 - Frontend: `http://localhost:5173`
-- API calls to `/api/*` are automatically proxied to `http://localhost:3000/api/*`
+- API calls to `/api/*` are automatically proxied to `https://kar-be.onrender.com/api/*`
 
 This avoids CORS issues during development.
 

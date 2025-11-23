@@ -1,7 +1,7 @@
 import type { ApiResponse } from '../types/api';
 
 // API Base URL - defaults to localhost:3000 (Next.js backend)
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://kar-be.onrender.com';
 
 // Get auth token from localStorage
 const getAuthToken = (): string | null => {
@@ -54,7 +54,7 @@ class ApiClient {
     options: RequestInit = {}
   ): Promise<ApiResponse<T>> {
     const token = getAuthToken();
-    
+
     const headers: HeadersInit = {
       'Content-Type': 'application/json',
       ...options.headers,

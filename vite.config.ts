@@ -8,7 +8,7 @@ export default defineConfig({
     // Proxy API requests to backend during development
     proxy: {
       '/api': {
-        target: process.env.VITE_API_URL || 'http://localhost:3000',
+        target: process.env.VITE_API_URL || 'https://kar-be.onrender.com',
         changeOrigin: true,
         secure: false,
       },
@@ -16,20 +16,20 @@ export default defineConfig({
   },
   esbuild: {
     logOverride: {
-      'ignored-directive': 'silent', 
+      'ignored-directive': 'silent',
     },
   },
-  logLevel: 'info', 
+  logLevel: 'info',
   build: {
     rollupOptions: {
       onwarn(warning, warn) {
         // ignore certain harmless warnings
         if (
           warning.message.includes('Module level directives') ||
-          warning.message.includes('"use client"')  ||
+          warning.message.includes('"use client"') ||
           warning.message.includes('"was ignored"')
         ) {
-          return; 
+          return;
         }
 
         // FAIL build on unresolved imports

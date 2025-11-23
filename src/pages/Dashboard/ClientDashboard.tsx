@@ -45,6 +45,10 @@ export default function ClientDashboard() {
     immatriculation: ''
   });
 
+  // Immatriculation parts
+  const [immatriculationPart1, setImmatriculationPart1] = useState('');
+  const [immatriculationPart2, setImmatriculationPart2] = useState('');
+
   // Add Service Sheet State
   const [showAddSheet, setShowAddSheet] = useState(false);
   const [addStep, setAddStep] = useState(1); // 1: Type Selection, 2: Details
@@ -88,6 +92,8 @@ export default function ClientDashboard() {
         annee: new Date().getFullYear(),
         immatriculation: ''
       });
+      setImmatriculationPart1('');
+      setImmatriculationPart2('');
       loadData();
     } catch (error) {
       toast.error('Erreur lors de l\'ajout du véhicule');
@@ -184,16 +190,6 @@ export default function ClientDashboard() {
 
   return (
     <div className="min-h-screen bg-slate-50 font-sans selection:bg-blue-100 pb-24 md:pb-8">
-
-      {/* Mobile Status Bar Simulation */}
-      <div className="bg-white/80 backdrop-blur-md sticky top-0 z-50 border-b border-gray-100 px-6 py-2 flex justify-between items-center md:hidden">
-        <span className="text-[11px] font-semibold tracking-wide text-black">9:41</span>
-        <div className="flex items-center gap-1.5 text-black">
-          <Signal className="h-3 w-3" strokeWidth={2.5} />
-          <Wifi className="h-3 w-3" strokeWidth={2.5} />
-          <Battery className="h-4 w-4" strokeWidth={2.5} />
-        </div>
-      </div>
 
       <div className="max-w-md mx-auto md:max-w-5xl md:px-6 md:py-8">
         <div className="md:grid md:grid-cols-2 md:gap-12 md:items-start">
@@ -318,7 +314,11 @@ export default function ClientDashboard() {
                   <form onSubmit={handleVehicleSubmit} className="bg-white rounded-2xl shadow-lg border border-gray-100 p-5 relative">
                     <button
                       type="button"
-                      onClick={() => setShowVehicleForm(false)}
+                      onClick={() => {
+                        setShowVehicleForm(false);
+                        setImmatriculationPart1('');
+                        setImmatriculationPart2('');
+                      }}
                       className="absolute top-4 right-4 text-gray-400 hover:text-gray-600"
                     >
                       <X size={20} />
@@ -341,22 +341,51 @@ export default function ClientDashboard() {
                         onChange={(e) => setVehicleForm({ ...vehicleForm, modele: e.target.value })}
                         className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none transition-all"
                       />
-                      <div className="grid grid-cols-2 gap-3">
-                        <input
-                          type="number"
-                          placeholder="Année"
-                          required
-                          value={vehicleForm.annee}
-                          onChange={(e) => setVehicleForm({ ...vehicleForm, annee: parseInt(e.target.value) })}
-                          className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none transition-all"
-                        />
+                      <input
+                        type="number"
+                        placeholder="Année"
+                        required
+                        value={vehicleForm.annee}
+                        onChange={(e) => setVehicleForm({ ...vehicleForm, annee: parseInt(e.target.value) })}
+                        className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none transition-all"
+                      />
+                      <div className="flex items-center gap-2">
                         <input
                           type="text"
-                          placeholder="Immatriculation"
+                          placeholder="123"
                           required
-                          value={vehicleForm.immatriculation}
-                          onChange={(e) => setVehicleForm({ ...vehicleForm, immatriculation: e.target.value })}
-                          className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none transition-all"
+                          maxLength={3}
+                          value={immatriculationPart1}
+                          onChange={(e) => {
+                            const val = e.target.value.replace(/[^\d]/g, '');
+                            setImmatriculationPart1(val);
+                            setVehicleForm({
+                              ...vehicleForm,
+                              immatriculation: val + (immatriculationPart2 ? ' TN ' + immatriculationPart2 : '')
+                            });
+                          }}
+                          className="w-24 px-2 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none transition-all text-center"
+                        />
+
+                        <div className="px-6 py-3 bg-blue-600 text-white font-bold rounded-xl min-w-[60px] text-center">
+                          TN
+                        </div>
+
+                        <input
+                          type="text"
+                          placeholder="456"
+                          required
+                          maxLength={3}
+                          value={immatriculationPart2}
+                          onChange={(e) => {
+                            const val = e.target.value.replace(/[^\d]/g, '');
+                            setImmatriculationPart2(val);
+                            setVehicleForm({
+                              ...vehicleForm,
+                              immatriculation: (immatriculationPart1 || '') + (immatriculationPart1 ? ' TN ' : '') + val
+                            });
+                          }}
+                          className="w-24 px-2 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none transition-all text-center"
                         />
                       </div>
                       <button

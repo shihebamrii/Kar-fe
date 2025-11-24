@@ -73,7 +73,9 @@ export default function AdminDashboard() {
     if (!selectedUser) return;
 
     try {
-      await adminService.updateUser(selectedUser.id, editForm);
+      // Handle both id and _id from backend
+      const userId = selectedUser.id || (selectedUser as any)._id;
+      await adminService.updateUser(userId, editForm);
       toast.success('Utilisateur mis à jour');
       setShowEditModal(false);
       loadData();
@@ -102,7 +104,9 @@ export default function AdminDashboard() {
 
   const handleEditGarage = (garage: UserType) => {
     setIsEditingGarage(true);
-    setSelectedGarageId(garage.id);
+    // Handle both id and _id from backend
+    const garageId = garage.id || (garage as any)._id;
+    setSelectedGarageId(garageId);
     setGarageForm({
       username: garage.username,
       email: garage.email,
@@ -283,7 +287,7 @@ export default function AdminDashboard() {
                 </thead>
                 <tbody>
                   {garages.map((g) => (
-                    <tr key={g.id} className="border-b border-gray-100 hover:bg-gray-50">
+                    <tr key={g.id || (g as any)._id} className="border-b border-gray-100 hover:bg-gray-50">
                       <td className="py-3 px-4">
                         <div className="flex items-center space-x-2">
                           <div className="h-8 w-8 bg-orange-100 rounded-full flex items-center justify-center">
@@ -302,7 +306,7 @@ export default function AdminDashboard() {
                             <Edit className="h-4 w-4" />
                           </button>
                           <button
-                            onClick={() => handleDeleteGarage(g.id)}
+                            onClick={() => handleDeleteGarage(g.id || (g as any)._id)}
                             className="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors"
                           >
                             <Trash2 className="h-4 w-4" />
@@ -339,7 +343,7 @@ export default function AdminDashboard() {
                 </thead>
                 <tbody>
                   {users.map((u) => (
-                    <tr key={u.id} className="border-b border-gray-100 hover:bg-gray-50">
+                    <tr key={u.id || (u as any)._id} className="border-b border-gray-100 hover:bg-gray-50">
                       <td className="py-3 px-4">
                         <div className="flex items-center space-x-2">
                           <div className="h-8 w-8 bg-blue-100 rounded-full flex items-center justify-center">
@@ -367,9 +371,9 @@ export default function AdminDashboard() {
                           >
                             <Edit className="h-4 w-4" />
                           </button>
-                          {u.id !== user?.id && (
+                          {(u.id || (u as any)._id) !== (user?.id || (user as any)?._id) && (
                             <button
-                              onClick={() => handleDeleteUser(u.id)}
+                              onClick={() => handleDeleteUser(u.id || (u as any)._id)}
                               className="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors"
                             >
                               <Trash2 className="h-4 w-4" />

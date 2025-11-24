@@ -5,9 +5,10 @@ import { useAuth } from '../contexts/AuthContext';
 interface ProtectedRouteProps {
   children: React.ReactNode;
   requireAdmin?: boolean;
+  requireGarage?: boolean;
 }
 
-export default function ProtectedRoute({ children, requireAdmin = false }: ProtectedRouteProps) {
+export default function ProtectedRoute({ children, requireAdmin = false, requireGarage = false }: ProtectedRouteProps) {
   const { isAuthenticated, user, isLoading } = useAuth();
 
   if (isLoading) {
@@ -23,6 +24,10 @@ export default function ProtectedRoute({ children, requireAdmin = false }: Prote
   }
 
   if (requireAdmin && user?.role !== 'admin') {
+    return <Navigate to="/dashboard" replace />;
+  }
+
+  if (requireGarage && user?.role !== 'garage') {
     return <Navigate to="/dashboard" replace />;
   }
 

@@ -18,6 +18,7 @@ import ForgotPassword from './src/pages/Auth/ForgotPassword';
 import NotFound from './src/pages/NotFound';
 import ClientDashboard from './src/pages/Dashboard/ClientDashboard';
 import AdminDashboard from './src/pages/Dashboard/AdminDashboard';
+import GarageDashboard from './src/pages/Dashboard/GarageDashboard';
 import ProtectedRoute from './src/components/ProtectedRoute';
 
 const App: React.FC = () => {
@@ -36,21 +37,29 @@ const App: React.FC = () => {
               <Route path="/auth/login" element={<Login />} />
               <Route path="/auth/register" element={<Register />} />
               <Route path="/auth/forgot" element={<ForgotPassword />} />
-              <Route 
-                path="/dashboard" 
+              <Route
+                path="/dashboard"
                 element={
                   <ProtectedRoute>
                     <ClientDashboard />
                   </ProtectedRoute>
-                } 
+                }
               />
-              <Route 
-                path="/admin/dashboard" 
+              <Route
+                path="/admin/dashboard"
                 element={
                   <ProtectedRoute requireAdmin={true}>
                     <AdminDashboard />
                   </ProtectedRoute>
-                } 
+                }
+              />
+              <Route
+                path="/garage/dashboard"
+                element={
+                  <ProtectedRoute requireGarage={true}>
+                    <GarageDashboard />
+                  </ProtectedRoute>
+                }
               />
               <Route path="*" element={<NotFound />} />
             </Routes>

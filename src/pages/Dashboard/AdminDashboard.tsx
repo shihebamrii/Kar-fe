@@ -238,19 +238,13 @@ export default function AdminDashboard() {
               <div className="bg-white rounded-xl shadow-lg p-6">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-gray-600 text-sm">Rôles Spéciaux</p>
-                    <div className="mt-2">
-                      <div className="flex items-center justify-between text-sm mb-1">
-                        <span className="text-gray-600">Admins:</span>
-                        <span className="font-bold text-gray-900">{stats.overview.totalAdmins}</span>
-                      </div>
-                      <div className="flex items-center justify-between text-sm">
-                        <span className="text-gray-600">Garages:</span>
-                        <span className="font-bold text-gray-900">{garages.length}</span>
-                      </div>
-                    </div>
+                    <p className="text-gray-600 text-sm">Administrateurs</p>
+                    <p className="text-3xl font-bold text-gray-900 mt-2">{stats.overview.totalAdmins}</p>
+                    <p className="text-sm text-gray-500 mt-1">
+                      {stats.overview.totalRegularUsers} utilisateurs
+                    </p>
                   </div>
-                  <div className="bg-purple-100 p-3 rounded-lg h-fit">
+                  <div className="bg-purple-100 p-3 rounded-lg">
                     <Shield className="h-8 w-8 text-purple-600" />
                   </div>
                 </div>
@@ -327,7 +321,7 @@ export default function AdminDashboard() {
         <div className="bg-white rounded-2xl shadow-lg p-6">
           <h2 className="text-2xl font-bold text-gray-900 mb-6">Gestion des Utilisateurs</h2>
 
-          {users.filter(u => u.role !== 'garage').length === 0 ? (
+          {users.length === 0 ? (
             <div className="text-center py-12">
               <Users className="h-16 w-16 text-gray-400 mx-auto mb-4" />
               <p className="text-gray-600">Aucun utilisateur</p>
@@ -344,7 +338,7 @@ export default function AdminDashboard() {
                   </tr>
                 </thead>
                 <tbody>
-                  {users.filter(u => u.role !== 'garage').map((u) => (
+                  {users.map((u) => (
                     <tr key={u.id} className="border-b border-gray-100 hover:bg-gray-50">
                       <td className="py-3 px-4">
                         <div className="flex items-center space-x-2">
@@ -357,10 +351,12 @@ export default function AdminDashboard() {
                       <td className="py-3 px-4 text-gray-600">{u.email}</td>
                       <td className="py-3 px-4">
                         <span className={`px-2 py-1 rounded-full text-xs font-medium ${u.role === 'admin'
-                            ? 'bg-purple-100 text-purple-700'
+                          ? 'bg-purple-100 text-purple-700'
+                          : u.role === 'garage'
+                            ? 'bg-orange-100 text-orange-700'
                             : 'bg-gray-100 text-gray-700'
                           }`}>
-                          {u.role === 'admin' ? 'Administrateur' : 'Utilisateur'}
+                          {u.role === 'admin' ? 'Administrateur' : u.role === 'garage' ? 'Garage' : 'Utilisateur'}
                         </span>
                       </td>
                       <td className="py-3 px-4">
@@ -513,3 +509,4 @@ export default function AdminDashboard() {
     </div>
   );
 }
+

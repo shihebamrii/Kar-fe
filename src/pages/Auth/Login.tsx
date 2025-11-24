@@ -36,6 +36,8 @@ export default function Login() {
       // Redirect based on user role
       if (user.role === 'admin') {
         navigate('/admin/dashboard');
+      } else if (user.role === 'garage') {
+        navigate('/garage/dashboard');
       } else {
         navigate('/dashboard');
       }

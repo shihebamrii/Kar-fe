@@ -5,7 +5,7 @@ const API_URL = 'https://kar-be.onrender.com/api';
 
 // Helper to get auth header
 const getAuthHeader = () => {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem('auth_token');
     return { headers: { Authorization: `Bearer ${token}` } };
 };
 

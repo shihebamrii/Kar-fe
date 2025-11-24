@@ -41,11 +41,11 @@ export const adminService = {
    */
   async getStats(): Promise<AdminStats> {
     const response = await apiClient.get<AdminStats>('/api/admin/stats');
-    
+
     if (response.success && response.data) {
       return response.data;
     }
-    
+
     throw new Error(response.message || 'Failed to fetch admin statistics');
   },
 
@@ -54,11 +54,11 @@ export const adminService = {
    */
   async getUsers(): Promise<User[]> {
     const response = await apiClient.get<AdminUsersResponse>('/api/admin/users');
-    
+
     if (response.success && response.data) {
       return response.data.users;
     }
-    
+
     throw new Error(response.message || 'Failed to fetch users');
   },
 
@@ -67,24 +67,24 @@ export const adminService = {
    */
   async getUserById(id: string): Promise<User> {
     const response = await apiClient.get<{ user: User }>(`/api/admin/users/${id}`);
-    
+
     if (response.success && response.data) {
       return response.data.user;
     }
-    
+
     throw new Error(response.message || 'Failed to fetch user');
   },
 
   /**
    * Update user
    */
-  async updateUser(id: string, userData: Partial<{ username: string; email: string; role: 'user' | 'admin' }>): Promise<User> {
+  async updateUser(id: string, userData: Partial<{ username: string; email: string; role: 'user' | 'admin' | 'garage' }>): Promise<User> {
     const response = await apiClient.put<{ user: User }>(`/api/admin/users/${id}`, userData);
-    
+
     if (response.success && response.data) {
       return response.data.user;
     }
-    
+
     throw new Error(response.message || 'Failed to update user');
   },
 
@@ -93,7 +93,7 @@ export const adminService = {
    */
   async deleteUser(id: string): Promise<void> {
     const response = await apiClient.delete(`/api/admin/users/${id}`);
-    
+
     if (!response.success) {
       throw new Error(response.message || 'Failed to delete user');
     }
@@ -104,11 +104,11 @@ export const adminService = {
    */
   async getVehicles(): Promise<Vehicle[]> {
     const response = await apiClient.get<AdminVehiclesResponse>('/api/admin/vehicles');
-    
+
     if (response.success && response.data) {
       return response.data.vehicles;
     }
-    
+
     throw new Error(response.message || 'Failed to fetch vehicles');
   },
 
@@ -117,12 +117,62 @@ export const adminService = {
    */
   async getServices(): Promise<Service[]> {
     const response = await apiClient.get<AdminServicesResponse>('/api/admin/services');
-    
+
     if (response.success && response.data) {
       return response.data.services;
     }
-    
+
     throw new Error(response.message || 'Failed to fetch services');
+  },
+
+  /**
+   * Get all garages
+   */
+  async getGarages(): Promise<User[]> {
+    const response = await apiClient.get<User[]>('/api/admin/garages');
+
+    if (response.success && response.data) {
+      return response.data;
+    }
+
+    throw new Error(response.message || 'Failed to fetch garages');
+  },
+
+  /**
+   * Create garage
+   */
+  async createGarage(garageData: { username: string; email: string; password: string }): Promise<User> {
+    const response = await apiClient.post<{ user: User }>('/api/admin/garages', garageData);
+
+    if (response.success && response.data) {
+      return response.data.user;
+    }
+
+    throw new Error(response.message || 'Failed to create garage');
+  },
+
+  /**
+   * Update garage
+   */
+  async updateGarage(id: string, garageData: Partial<{ username: string; email: string }>): Promise<User> {
+    const response = await apiClient.put<{ user: User }>(`/api/admin/garages/${id}`, garageData);
+
+    if (response.success && response.data) {
+      return response.data.user;
+    }
+
+    throw new Error(response.message || 'Failed to update garage');
+  },
+
+  /**
+   * Delete garage
+   */
+  async deleteGarage(id: string): Promise<void> {
+    const response = await apiClient.delete(`/api/admin/garages/${id}`);
+
+    if (!response.success) {
+      throw new Error(response.message || 'Failed to delete garage');
+    }
   },
 };
 

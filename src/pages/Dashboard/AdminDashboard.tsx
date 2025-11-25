@@ -338,51 +338,67 @@ export default function AdminDashboard() {
                     <th className="text-left py-3 px-4 text-sm font-semibold text-gray-700">Utilisateur</th>
                     <th className="text-left py-3 px-4 text-sm font-semibold text-gray-700">Email</th>
                     <th className="text-left py-3 px-4 text-sm font-semibold text-gray-700">Rôle</th>
+                    <th className="text-left py-3 px-4 text-sm font-semibold text-gray-700">Créé par</th>
                     <th className="text-left py-3 px-4 text-sm font-semibold text-gray-700">Actions</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {users.map((u) => (
-                    <tr key={u.id || (u as any)._id} className="border-b border-gray-100 hover:bg-gray-50">
-                      <td className="py-3 px-4">
-                        <div className="flex items-center space-x-2">
-                          <div className="h-8 w-8 bg-blue-100 rounded-full flex items-center justify-center">
-                            <User className="h-4 w-4 text-blue-600" />
+                  {users.map((u) => {
+                    const garageInfo = u.garageId && typeof u.garageId === 'object' ? u.garageId : null;
+                    return (
+                      <tr key={u.id || (u as any)._id} className="border-b border-gray-100 hover:bg-gray-50">
+                        <td className="py-3 px-4">
+                          <div className="flex items-center space-x-2">
+                            <div className="h-8 w-8 bg-blue-100 rounded-full flex items-center justify-center">
+                              <User className="h-4 w-4 text-blue-600" />
+                            </div>
+                            <span className="font-medium text-gray-900">{u.username}</span>
                           </div>
-                          <span className="font-medium text-gray-900">{u.username}</span>
-                        </div>
-                      </td>
-                      <td className="py-3 px-4 text-gray-600">{u.email}</td>
-                      <td className="py-3 px-4">
-                        <span className={`px-2 py-1 rounded-full text-xs font-medium ${u.role === 'admin'
-                          ? 'bg-purple-100 text-purple-700'
-                          : u.role === 'garage'
-                            ? 'bg-orange-100 text-orange-700'
-                            : 'bg-gray-100 text-gray-700'
-                          }`}>
-                          {u.role === 'admin' ? 'Administrateur' : u.role === 'garage' ? 'Garage' : 'Utilisateur'}
-                        </span>
-                      </td>
-                      <td className="py-3 px-4">
-                        <div className="flex items-center space-x-2">
-                          <button
-                            onClick={() => handleEditUser(u)}
-                            className="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
-                          >
-                            <Edit className="h-4 w-4" />
-                          </button>
-                          {(u.id || (u as any)._id) !== (user?.id || (user as any)?._id) && (
-                            <button
-                              onClick={() => handleDeleteUser(u.id || (u as any)._id)}
-                              className="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors"
-                            >
-                              <Trash2 className="h-4 w-4" />
-                            </button>
+                        </td>
+                        <td className="py-3 px-4 text-gray-600">{u.email}</td>
+                        <td className="py-3 px-4">
+                          <span className={`px-2 py-1 rounded-full text-xs font-medium ${u.role === 'admin'
+                            ? 'bg-purple-100 text-purple-700'
+                            : u.role === 'garage'
+                              ? 'bg-orange-100 text-orange-700'
+                              : 'bg-gray-100 text-gray-700'
+                            }`}>
+                            {u.role === 'admin' ? 'Administrateur' : u.role === 'garage' ? 'Garage' : 'Utilisateur'}
+                          </span>
+                        </td>
+                        <td className="py-3 px-4">
+                          {garageInfo ? (
+                            <div className="flex items-center space-x-2">
+                              <Wrench className="h-4 w-4 text-orange-600" />
+                              <span className="text-sm text-gray-700">{garageInfo.username}</span>
+                            </div>
+                          ) : (
+                            <span className="px-2 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-700">
+                              Admin
+                            </span>
                           )}
-                        </div>
-                      </td>
-                    </tr>
-                  ))}
+                        </td>
+                        <td className="py-3 px-4">
+                          <div className="flex items-center space-x-2">
+                            <button
+                              onClick={() => handleEditUser(u)}
+                              className="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
+                            >
+                              <Edit className="h-4 w-4" />
+                            </button>
+                            {(u.id || (u as any)._id) !== (user?.id || (user as any)?._id) && (
+                              <button
+                                onClick={() => handleDeleteUser(u.id || (u as any)._id)}
+                                className="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+                              >
+                                <Trash2 className="h-4 w-4" />
+                              </button>
+                            )}
+                          </div>
+                        </td>
+                      </tr>
+                    );
+                  })}
                 </tbody>
               </table>
             </div>

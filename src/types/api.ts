@@ -13,6 +13,7 @@ export interface User {
   username: string;
   email: string;
   role?: 'user' | 'admin' | 'garage';
+  garageId?: string | { _id: string; username: string; email: string };
 }
 
 export interface AuthResponse {

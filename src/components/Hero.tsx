@@ -216,9 +216,7 @@ const Hero = () => {
 
                   <div className="flex justify-between items-start relative z-10">
                     {/* Chip */}
-                    <div className="w-10 h-7 bg-gradient-to-br from-yellow-200 via-yellow-400 to-yellow-600 rounded-md shadow-inner border border-yellow-600/50 flex items-center justify-center">
-                      <div className="w-4 h-3 border border-yellow-700/50 rounded-sm"></div>
-                    </div>
+                    <img src="/qr-code.png" alt="QR Code" className="w-10 h-auto object-contain" />
                     <Wifi className="rotate-90 h-6 w-6 text-gray-500" />
                   </div>
 
